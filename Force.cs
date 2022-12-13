@@ -1,26 +1,19 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Force : MonoBehaviour
+public static class Force
 {
-    [Header("Gravity Settings")]
-    [SerializeField] public float GravityForce;
-    [SerializeField] public float CurrentGravity;
-    [SerializeField] float JumpForce;
-
-    [Header("Component")]
-    [SerializeField] Rigidbody Rigidbody;
-    [SerializeField] PlayerStateMachine PlayerStateMachine;
-    [SerializeField] InputManager InputManager;
-
-    void Update()
+    public static void MovementForce(this Rigidbody2D Rigidbody2D, Vector2 Movement, float MovementForce, float DeltaTime)
     {
-        if (PlayerStateMachine.GroundCheck.IsGrounded && InputManager.PlayerControls.Player.Jump.triggered)
-        {
-            PlayerStateMachine.SwitchState(new PlayerJumpState(PlayerStateMachine));
-        }
+        Rigidbody2D.AddForce(Movement * MovementForce * DeltaTime, ForceMode2D.Impulse);
     }
 
-    public void GetGravityForce() => Rigidbody.AddForce(Vector3.down * GravityForce * Time.fixedDeltaTime, ForceMode.Impulse);
-    public void GetJumpForce() => Rigidbody.AddForce(Vector3.up * JumpForce * Time.fixedDeltaTime, ForceMode.Impulse);
+    public static void JumpForce(this Rigidbody2D Rigidbody2D, float JumpForce, float DeltaTime)
+    {
+        Rigidbody2D.AddForce(Vector2.up * JumpForce * DeltaTime, ForceMode2D.Impulse);
+    }
+
+    public static void GravityForce(this Rigidbody2D Rigidbody2D, float GravityForce, float DeltaTime)
+    {
+        Rigidbody2D.AddForce(Vector2.down * GravityForce * DeltaTime, ForceMode2D.Impulse);
+    }
 }
