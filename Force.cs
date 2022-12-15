@@ -2,18 +2,18 @@ using UnityEngine;
 
 public static class Force
 {
-    public static void MovementForce(this Rigidbody2D Rigidbody2D, Vector2 Movement, float MovementForce, float DeltaTime)
+    public static void MovementForce(this Rigidbody Rigidbody, Vector3 Movement, float MovementForce)
     {
-        Rigidbody2D.AddForce(Movement * MovementForce * DeltaTime, ForceMode2D.Impulse);
+        Rigidbody.AddForce(Movement * MovementForce, ForceMode.Impulse);
     }
 
-    public static void JumpForce(this Rigidbody2D Rigidbody2D, float JumpForce, float DeltaTime)
+    public static void JumpForce(this Rigidbody Rigidbody, float JumpForce)
     {
-        Rigidbody2D.AddForce(Vector2.up * JumpForce * DeltaTime, ForceMode2D.Impulse);
+        Rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
     }
 
-    public static void GravityForce(this Rigidbody2D Rigidbody2D, float GravityForce, float DeltaTime)
+    public static void GravityForce(this Rigidbody Rigidbody, float GravityForce)
     {
-        Rigidbody2D.AddForce(Vector2.down * GravityForce * DeltaTime, ForceMode2D.Impulse);
+        Rigidbody.AddForce(Vector3.down * GravityForce, ForceMode.Impulse);
     }
 }
